@@ -48,7 +48,7 @@ const Register = () => {
 
 
   return (
-    <div className="px-12 max-w-md mx-auto">
+    <div className="px-12 max-w-md mx-auto mt-24">
       <div className="w-full">
         <img className="rounded-md  h-48 object-cover object-center shadow-lg w-full" src="../img/my-life-journal.jpg" alt="Woman paying for a purchase"/>
       </div>
@@ -67,7 +67,7 @@ const Register = () => {
           <div className="border-b border-b-2 border-teal-500 py-2">
             <input onChange={handlePassword} className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="password" placeholder="Password" aria-label="Password" required/>
           </div>
-          <button className="uppercase mt-2 w-full bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="submit">
+          <button className="uppercase mt-2 w-full bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm font-bold border-4 text-white py-1 px-2 rounded" type="submit">
             Sign Up
           </button>
         </form>
