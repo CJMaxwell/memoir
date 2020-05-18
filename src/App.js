@@ -9,7 +9,8 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Home from './components/Home';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
-import NewMemoir from './components/NewMemoir';
+import CreateMemoir from './components/CreateMemoir';
+import MemoirContent from './components/MemoirContent';
 
 
 const App = () => {
@@ -19,17 +20,20 @@ const App = () => {
         <Route exact path="/">
             <Home />
         </Route>
-        <Route exact path="/register">
+        <Route path="/memoir/:id">
+          <MemoirContent />
+        </Route>
+        <Route path="/register">
           <Register />
         </Route>
-        <Route exact path="/login">
+        <Route path="/login">
           <Login />
         </Route>
         <AuthenticatedRoute path="/dashboard">
           <Dashboard />
         </AuthenticatedRoute>
         <AuthenticatedRoute path="/create-memoir">
-          <NewMemoir />
+          <CreateMemoir />
         </AuthenticatedRoute>
       </Switch>
     </Router>

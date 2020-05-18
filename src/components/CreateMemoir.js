@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios'
 
 
-const NewMemoir = () => {
+const CreateMemoir = () => {
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -63,4 +63,4 @@ const NewMemoir = () => {
   )
 }
 
-export default NewMemoir
+export default CreateMemoir

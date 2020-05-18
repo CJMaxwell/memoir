@@ -1,25 +1,31 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
-const MemoirItem = ({memoir}) => {
+
+const MemoirItem = ({ memoir }) => {
+
+  const history = useHistory();
   const publishedOn = new Date(memoir.date)
   const dateFormat = publishedOn.toDateString();
   const dateArray = dateFormat.split(' ');
-  const acceptedFormat = `${dateArray[1]} ${dateArray[2]}`
-  
+  const weekday = `${dateArray[0]}`;
+  const day = `${dateArray[2]}`;
+
   return (
-    <div className="max-w-md w-full mx-auto mt-8">
-      <div className="border border-gray-400 bg-gray-100 rounded-b p-4 flex flex-col justify-between leading-normal">
-        <div className="mb-8">
-          <div className="text-gray-900 font-bold text-xl mb-2">{memoir.title}</div>
-          <p className="text-gray-700 text-base">{memoir.description}</p>
+      <div onClick={() => history.push(`/memoir/${memoir.id}`)} className="flex cursor-pointer px-8 bg-white py-6 shadow-lg rounded-lg mt-4 flex-wrap">
+        <div className="w-1/6">
+          <p className="font-semibold text-xl uppercase">{weekday}</p>
+          <span className="font-bold text-6xl">{day}</span>
         </div>
-        <div className="flex items-center">
-          <div className="text-sm">
-          <p className="text-gray-600">{acceptedFormat}</p>
+        <div className="w-5/6">
+          <h4 className="font-semibold text-2xl leading-tight truncate">{memoir.title}</h4>
+          <p className="mt-2 text-gray-800">{memoir.description}</p>
+          <div className="mt-10">
+            <span className="text-gray-600">2.55p.m</span>
           </div>
         </div>
       </div>
-    </div>
+    
   )
 }
 
