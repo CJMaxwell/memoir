@@ -30,3 +30,4 @@ const MemoirItem = ({ memoir }) => {
 }
 
 export default MemoirItem
+ 

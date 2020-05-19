@@ -3,11 +3,19 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
+
+  const statusType = {
+    pending: 'Pending',
+    resolved: 'Resolved',
+    rejected: 'Rejected'
+  };
+
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // eslint-disable-next-line
   const [response, setResponse] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [status, setStatus] = useState(statusType.pending);
   const [error, setError] = useState(null);
 
   const handleEmail = e => setEmail(e.target.value);
@@ -28,7 +36,7 @@ const Login = () => {
     axios.post(url, logInUser, reqOptions)
       .then(res => {
         setResponse(res);
-        setIsLoading(false);
+        setStatus(statusType.resolved);
         const accessToken = res.data.token;
         if(res.status === 200) {
          localStorage.setItem('token', `Bearer ${accessToken}`);
@@ -37,7 +45,10 @@ const Login = () => {
       })
       .catch(err => {
         setError(err);
-        setIsLoading(false);
+        setStatus(statusType.rejected);
+        if(status === statusType.rejected) {
+          return <p className="text-center text-xl mx-auto mt-64">{error}</p>
+        };
       })
   }
   // console.log(response);
