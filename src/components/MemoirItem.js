@@ -1,5 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import truncateWords from 'truncate-words';
 
 
 const MemoirItem = ({ memoir }) => {
@@ -19,7 +21,7 @@ const MemoirItem = ({ memoir }) => {
         </div>
         <div className="w-5/6">
           <h4 className="font-semibold text-2xl leading-tight truncate">{memoir.title}</h4>
-          <p className="mt-2 text-gray-800">{memoir.description}</p>
+          <p className="mt-2 text-gray-800">{truncateWords(memoir.description, 25)}</p>
           <div className="mt-10">
             <span className="text-gray-600">2.55p.m</span>
           </div>
@@ -27,6 +29,10 @@ const MemoirItem = ({ memoir }) => {
       </div>
     
   )
+}
+
+MemoirItem.propTypes = {
+  memoir: PropTypes.object.isRequired
 }
 
 export default MemoirItem

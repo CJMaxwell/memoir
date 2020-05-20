@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from "react-router-dom";
 import axios from 'axios';
+import getHours from 'date-fns/getHours';
+import getMinutes from 'date-fns/getMinutes';
 import Sidebar from './Sidebar';
 import NewMemoirButton from './NewMemoirButton';
 
@@ -38,15 +40,19 @@ const MemoirContent = () => {
       .catch(err => {
         setError(err);
         setStatus(statusType.rejected);
-        if(status === statusType.rejected) {
-          return <p className="text-center text-xl mx-auto mt-64">{error}</p>
-        }
+        
       })
-  });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
+
 
   if(!response && (status === statusType.pending)) {
-    return <h1 className="text-center text-6xl mx-auto mt-64">Loading...</h1>
-  };
+    return <h1 className="text-center text-6xl mx-auto mt-64">Loading...</h1>;
+  }
+  
+  if(status === statusType.rejected) {
+    return <p className="text-center text-xl mx-auto mt-64">{error.response.data.message}</p>;
+  }
 
   const { title, description, date, completed } = response;
 
@@ -55,6 +61,9 @@ const MemoirContent = () => {
   const dateArray = dateFormat.split(' ');
   const weekday = `${dateArray[0]}`;
   const day = `${dateArray[2]}`;
+
+  const hour = getHours(date);
+  const min = getMinutes(date);
 
   const handleClick = () => {
     const token = localStorage.getItem('token');
@@ -102,7 +111,7 @@ const MemoirContent = () => {
               <svg className="h-5 w-5 pr-2" aria-hidden="true" data-prefix="fal" data-icon="calendar-alt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                 <path fill="currentColor" d="M400 64h-48V12c0-6.6-5.4-12-12-12h-8c-6.6 0-12 5.4-12 12v52H128V12c0-6.6-5.4-12-12-12h-8c-6.6 0-12 5.4-12 12v52H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zM48 96h352c8.8 0 16 7.2 16 16v48H32v-48c0-8.8 7.2-16 16-16zm352 384H48c-8.8 0-16-7.2-16-16V192h384v272c0 8.8-7.2 16-16 16zM148 320h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm96 0h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm96 0h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-96 96h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-96 0h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm192 0h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12z"/>
               </svg>
-              <span className="text-gray-600">2.55p.m</span>
+              <span className="text-gray-600">{`${hour}:${min}`}</span>
             </div>
           </div>
           <div className="w-5/6">
@@ -120,8 +129,6 @@ const MemoirContent = () => {
         }
       </div>
     </div>
-
-   
   )
 }
 

@@ -52,11 +52,12 @@ const CreateMemoir = () => {
     .catch(err => {
       setError(err);
       setStatus(statusType.rejected);
-      if(status === statusType.rejected) {
-        return <p className="text-center text-xl mx-auto mt-64">{error}</p>
-      }
     });
     
+  }
+
+  if(status === statusType.rejected) {
+    return <p className="text-center text-xl mx-auto mt-64">{error.response.data.message}</p>;
   }
 
   return (
